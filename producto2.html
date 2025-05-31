@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wingspan - Tablero Maestro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=El+Messiri&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+             <a href="index.html" class="logo-link">
+                <img src="images/logo.png" alt="Tablero Maestro Logo" class="logo">
+                <h1>Tablero Maestro</h1>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html" class="active">Catálogo</a></li> <!-- Marcar catálogo como activo si vienen desde ahí -->
+                    <li><a href="comunidad.html">Comunidad</a></li>
+                    <li><a href="juego.html">Juega y Gana</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="carrito.html" id="cart-icon-link">Carrito <span id="cart-count">(0)</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container product-detail">
+        <div class="product-image-section">
+            <img src="images/wingspan.jpg" alt="Juego de mesa Wingspan" class="product-image-large">
+        </div>
+        <div class="product-info-section">
+            <h2>Wingspan</h2>
+            <p class="product-price-large">Precio: S/ 250.00</p>
+            
+            <h3>Descripción Ampliada:</h3>
+            <p>Wingspan es un juego de mesa competitivo de peso medio, de construcción de motores de cartas sobre aves, diseñado por Elizabeth Hargrave. Los jugadores son entusiastas de las aves —investigadores, observadores de aves, ornitólogos y coleccionistas— que buscan descubrir y atraer a las mejores aves a su red de aviarios. Cada ave extiende una cadena de poderosas combinaciones en uno de tus hábitats (acciones).</p>
+            <p>Este juego es una joya tanto para el <strong>Consumidor Especializado</strong>, que apreciará su elegante diseño y profundidad estratégica, como para el <strong>Consumidor No Especializado</strong> atraído por su hermosa producción y temática accesible. Ha ganado numerosos premios, incluyendo el prestigioso Kennerspiel des Jahres en 2019.</p>
+
+            <h3>Características:</h3>
+            <ul>
+                <li><strong>Diseñadora:</strong> Elizabeth Hargrave</li>
+                <li><strong>Artistas:</strong> Ana Maria Martinez Jaramillo, Natalia Rojas, Beth Sobel</li>
+                <li><strong>Jugadores:</strong> 1-5</li>
+                <li><strong>Tiempo de juego:</strong> 40-70 minutos</li>
+                <li><strong>Edad recomendada:</strong> 10+</li>
+                <li><strong>Complejidad:</strong> Media</li>
+                <li><strong>Mecánicas principales:</strong> Construcción de motores, gestión de mano, coleccionismo, tirada de dados (para comida).</li>
+            </ul>
+            
+            <button class="btn-primary btn-add-to-cart"
+                    data-id="wingspan002"
+                    data-name="Wingspan"
+                    data-price="250.00"
+                    data-image="images/wingspan.jpg">Añadir al Carrito</button>
+            <p class="payment-info-note">Recuerda: Para pagos con Yape o Lukita, contáctanos tras añadir al carrito para validar tu pedido.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Tablero Maestro. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
