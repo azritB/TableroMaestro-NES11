@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras - Tablero Maestro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=El+Messiri&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para la página del carrito */
+        .cart-item {
+            display: flex;
+            flex-wrap: wrap; /* Para mejor responsividad */
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 20px;
+            border-radius: 4px;
+            margin-bottom: 10px; /* Para responsividad */
+        }
+        .cart-item-info {
+            flex-grow: 1;
+            min-width: 200px; /* Para que no se comprima demasiado */
+            margin-bottom: 10px; /* Para responsividad */
+        }
+        .cart-item-info h4 {
+            margin: 0 0 8px 0;
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+        .cart-item-info p {
+            margin: 4px 0;
+            font-size: 0.95em;
+        }
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            min-width: 150px; /* Para alinear botones */
+        }
+        .cart-item-actions input[type="number"] {
+            width: 60px;
+            padding: 8px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: 'El Messiri', sans-serif;
+            font-size: 1em;
+        }
+        .cart-item-actions .quantity-btn,
+        .cart-item-actions .remove-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            color: #333;
+            cursor: pointer;
+            font-size: 1em;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .cart-item-actions .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            margin-left: 15px;
+        }
+        .cart-item-actions .quantity-btn:hover,
+        .cart-item-actions .remove-btn:hover {
+            background-color: #ddd;
+        }
+        .cart-item-actions .remove-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .cart-summary {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .cart-total {
+            text-align: right;
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .empty-cart-message {
+            text-align: center;
+            font-size: 1.3em;
+            color: #777;
+            padding: 50px 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .checkout-button-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+        @media (max-width: 600px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .cart-item-actions {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            .cart-item-actions .remove-btn {
+                margin-left: 0; /* Ajuste para móvil */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo-link">
+                <img src="images/logo.png" alt="Tablero Maestro Logo" class="logo">
+                <h1>Tablero Maestro</h1>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="catalogo.html">Catálogo</a></li>
+                    <li><a href="comunidad.html">Comunidad</a></li>
+                    <li><a href="juego.html">Juega y Gana</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="carrito.html" id="cart-icon-link" class="active">Carrito <span id="cart-count">(0)</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container page-cart">
+        <h2>Tu Carrito de Compras</h2>
+        <div id="cart-items-container">
+            <!-- Los ítems del carrito se cargarán aquí dinámicamente -->
+        </div>
+        
+        <div id="cart-summary-section" style="display:none;">
+            <div class="cart-summary">
+                <div class="cart-total" id="cart-total-amount">
+                    Total: S/ 0.00
+                </div>
+                <div class="checkout-button-container">
+                    <button class="btn-primary" id="checkout-button">Proceder al Pago (Simulado)</button>
+                </div>
+                 <p class="payment-info-note" style="margin-top:15px; text-align:right;">
+                    Aceptamos PayU (online) y Yape/Lukita (coordinación manual).<br>
+                    Comisión PayU: 3.79% (ya incluido en el precio final si aplica).
+                </p>
+            </div>
+        </div>
+
+        <div id="empty-cart-message" class="empty-cart-message" style="display:none;">
+            Tu carrito está vacío. <a href="catalogo.html" class="btn-primary" style="margin-top:15px;">Explorar Juegos</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Tablero Maestro. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Lógica específica para la página del carrito
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartSummarySectionEl = document.getElementById('cart-summary-section');
+            const cartTotalAmountEl = document.getElementById('cart-total-amount');
+            const emptyCartMessageEl = document.getElementById('empty-cart-message');
+            const checkoutButton = document.getElementById('checkout-button');
+
+            // Reutilizamos las funciones base del carrito si están globales
+            // o las redefinimos aquí si es necesario para encapsulamiento.
+            // Para este ejemplo, asumimos que script.js ya definió getCart, saveCart, updateCartIcon globalmente
+            // o las volvemos a definir aquí de forma segura:
+
+            function getCartLocal() {
+                return JSON.parse(localStorage.getItem('cart')) || [];
+            }
+
+            function saveCartLocal(cart) {
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartIconLocal(); // Actualiza el ícono del header
+                renderCart();       // Vuelve a dibujar el carrito
+            }
+
+            function updateCartIconLocal() {
+                const cart = getCartLocal();
+                const cartCountEl = document.getElementById('cart-count'); // El del header
+                if (cartCountEl) {
+                    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    cartCountEl.textContent = `(${totalItems})`;
+                }
+            }
+
+            function renderCart() {
+                const cart = getCartLocal();
+                cartItemsContainer.innerHTML = ''; // Limpiar antes de renderizar
+
+                if (cart.length === 0) {
+                    emptyCartMessageEl.style.display = 'block';
+                    cartSummarySectionEl.style.display = 'none';
+                    return;
+                }
+                
+                emptyCartMessageEl.style.display = 'none';
+                cartSummarySectionEl.style.display = 'block';
+
+                let totalAmount = 0;
+
+                cart.forEach(item => {
+                    const itemSubtotal = item.price * item.quantity;
+                    totalAmount += itemSubtotal;
+
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>Precio unitario: S/ ${item.price.toFixed(2)}</p>
+                            <p><strong>Subtotal: S/ ${itemSubtotal.toFixed(2)}</strong></p>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button class="quantity-btn" data-id="${item.id}" data-change="-1">-</button>
+                            <input type="number" value="${item.quantity}" min="1" data-id="${item.id}" class="item-quantity-input" readonly>
+                            <button class="quantity-btn" data-id="${item.id}" data-change="1">+</button>
+                            <button class="remove-btn" data-id="${item.id}" title="Eliminar producto">× Eliminar</button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                });
+
+                cartTotalAmountEl.textContent = `Total: S/ ${totalAmount.toFixed(2)}`;
+
+                // Añadir event listeners a los nuevos botones
+                document.querySelectorAll('.quantity-btn').forEach(button => {
+                    button.addEventListener('click', handleChangeQuantity);
+                });
+                document.querySelectorAll('.remove-btn').forEach(button => {
+                    button.addEventListener('click', handleRemoveItem);
+                });
+                 //Input quantity change (si se habilita la edición directa)
+                /*
+                document.querySelectorAll('.item-quantity-input').forEach(input => {
+                    input.addEventListener('change', handleDirectQuantityChange);
+                });
+                */
+            }
+
+            function handleChangeQuantity(event) {
+                const productId = event.target.dataset.id;
+                const change = parseInt(event.target.dataset.change);
+                let cart = getCartLocal();
+                const productIndex = cart.findIndex(item => item.id === productId);
+
+                if (productIndex > -1) {
+                    cart[productIndex].quantity += change;
+                    if (cart[productIndex].quantity < 1) {
+                        // Si la cantidad es 0 o menos, eliminamos el producto
+                        cart.splice(productIndex, 1);
+                         Swal.fire({
+                            title: "Producto Eliminado",
+                            text: "El producto ha sido eliminado de tu carrito al reducir su cantidad a cero.",
+                            icon: "info",
+                            timer: 2000,
+                            showConfirmButton: false,
+                            customClass: { popup: 'swal-font-elmessiri' }
+                        });
+                    }
+                }
+                saveCartLocal(cart);
+            }
+             /*
+            function handleDirectQuantityChange(event) {
+                const productId = event.target.dataset.id;
+                const newQuantity = parseInt(event.target.value);
+                let cart = getCartLocal();
+                const productIndex = cart.findIndex(item => item.id === productId);
+
+                if (productIndex > -1) {
+                    if (newQuantity < 1) {
+                        cart.splice(productIndex, 1);
+                         Swal.fire("Producto Eliminado", "Cantidad ajustada a cero.", "info", {customClass: { popup: 'swal-font-elmessiri' }});
+                    } else {
+                        cart[productIndex].quantity = newQuantity;
+                    }
+                }
+                saveCartLocal(cart);
+            }
+            */
+
+            function handleRemoveItem(event) {
+                const productId = event.target.dataset.id;
+                let cart = getCartLocal();
+                cart = cart.filter(item => item.id !== productId);
+                saveCartLocal(cart);
+                Swal.fire({
+                    title: "Producto Eliminado",
+                    text: "El producto ha sido eliminado de tu carrito.",
+                    icon: "info",
+                    timer: 1500,
+                    showConfirmButton: false,
+                    customClass: { popup: 'swal-font-elmessiri' }
+                });
+            }
+
+            checkoutButton.addEventListener('click', () => {
+                const cart = getCartLocal();
+                if (cart.length === 0) {
+                    Swal.fire({
+                        title: "Carrito Vacío",
+                        text: "No hay productos en tu carrito para procesar.",
+                        icon: "warning",
+                        customClass: { popup: 'swal-font-elmessiri' }
+                    });
+                    return;
+                }
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+                Swal.fire({
+                    title: "Simulación de Proceso de Pago",
+                    html: `
+                        <p>El total de tu compra es: <strong>S/ ${total.toFixed(2)}</strong></p>
+                        <p>Por favor, selecciona tu método de pago:</p>
+                        <em>(Esta es una simulación, no se procesará ningún pago real.)</em>
+                    `,
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: 'Pagar con PayU (Simulado)',
+                    cancelButtonText: 'Pagar con Yape/Lukita (Coordinar)',
+                    reverseButtons: true,
+                    customClass: { popup: 'swal-font-elmessiri' }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Procesando con PayU...',
+                            text: 'Serás redirigido a la pasarela de PayU (simulación).',
+                            icon: 'success',
+                            timer: 3000,
+                            showConfirmButton: false,
+                            customClass: { popup: 'swal-font-elmessiri' }
+                        }).then(() => {
+                            // Opcional: Limpiar carrito después de simulación "exitosa"
+                            // saveCartLocal([]);
+                            // console.log("Simulación de pago con PayU completada.");
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        Swal.fire({
+                            title: 'Coordinar Pago Yape/Lukita',
+                            html: `
+                                <p>Para pagar con Yape o Lukita, por favor, contáctanos:</p>
+                                <ul>
+                                    <li>Chat de Ventas (en horario de oficina)</li>
+                                    <li>Correo: pagos@tableromaestro.com</li>
+                                </ul>
+                                <p>Indica tu número de pedido simulado: <strong>TM-${Date.now().toString().slice(-6)}</strong></p>
+                                <p>Un asesor validará tu pago manualmente.</p>`,
+                            icon: 'info',
+                            customClass: { popup: 'swal-font-elmessiri' }
+                        }).then(() => {
+                             // Opcional: Limpiar carrito después de simulación "exitosa"
+                            // saveCartLocal([]);
+                            // console.log("Instrucciones para Yape/Lukita mostradas.");
+                        });
+                    }
+                });
+            });
+
+            // Inicializar vista del carrito y contador del header
+            updateCartIconLocal();
+            renderCart();
+        });
+    </script>
+    <!-- NO incluyas js/script.js aquí de nuevo si ya lo tienes globalmente -->
+    <!-- Si necesitas funciones de script.js, asegúrate que estén disponibles globalmente -->
+    <!-- o que script.js se cargue una sola vez antes de este script. -->
+</body>
+</html>
